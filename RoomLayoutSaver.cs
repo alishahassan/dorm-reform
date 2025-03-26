@@ -158,6 +158,8 @@ public class RoomLayoutSaver : MonoBehaviour
             roomDimensions.ResetDimensions();
         }
         HideConfirmationDialog();
+        statusText.text = "Room layout reset successfully!";
+        Invoke("ClearStatus", 5f);
     }
 
     private void ClearStatus()
