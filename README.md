@@ -23,5 +23,5 @@ Dorm Reform is a 3D dorm room visualization and customization platform that help
 
 ### Clone the Repository  
 ```bash
-git clone https://github.com/your-repo/dormreform.git](https://github.com/alishahassan/DormReform.git
-cd DormReform
+git clone https://github.com/alishahassan/dorm-reform.git
+cd dorm-reform
