@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
-public class checkplacement : MonoBehaviour
+public class CheckPlacement : MonoBehaviour
 {
-    buildingmanager buildingManager;
+    BuildingManager buildingManager;
     void Start()
     {
         buildingManager = GameObject.Find("buildingmanager").GetComponent<buildingmanager>();
@@ -18,13 +18,16 @@ public class checkplacement : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other){
-        if(other.gameObject.CompareTag("object")) {
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("object"))
+        {
             buildingManager.canplace = false;
         }
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void OnTriggerExit(Collider other)
+    {
         buildingManager.canplace = true;
     }
 }
