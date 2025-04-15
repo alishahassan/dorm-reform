@@ -10,7 +10,7 @@ public class CheckPlacement : MonoBehaviour
     BuildingManager buildingManager;
     void Start()
     {
-        buildingManager = GameObject.Find("buildingmanager").GetComponent<buildingmanager>();
+        buildingManager = GameObject.Find("BuildingManager").GetComponent<buildingmanager>();
     }
 
     void Update()
