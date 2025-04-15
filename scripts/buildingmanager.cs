@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
 
-public class buildingmanager : MonoBehaviour
+public class BuildingManager : MonoBehaviour
 {
         public GameObject[] objects;
         public GameObject pendingObject;
@@ -22,19 +22,18 @@ public class buildingmanager : MonoBehaviour
 
     void Update()
     {
-        if(pendingObject != null) {
+        if(pendingObject != null)
+        {
             pendingObject.transform.position = pos;
-
-
-            if(Input.GetMouseButtonDown(0) && canplace) {
+            if(Input.GetMouseButtonDown(0) && canplace)
+            {
                 PlaceObject();
             }
-            
-
         }
     }
 
-    public void PlaceObject() {
+    public void PlaceObject()
+    {
         pendingObject = null;
     }
 
@@ -43,15 +42,16 @@ public class buildingmanager : MonoBehaviour
         furnitureParent = GameObject.Find("Room Builder/Furniture");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if(Physics.Raycast(ray, out hit, 1000, layerMask)) {
+        if(Physics.Raycast(ray, out hit, 1000, layerMask))
+        {
             pos = hit.point;
             // rotateFromMouseWheel();
             //pendingObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.point);
         }
-        
     }
 
-    public void SelectObject(int index) {
+    public void SelectObject(int index)
+    {
         pendingObject = Instantiate(objects[index], pos, transform.rotation, furnitureParent.transform); // place new object will go to
     }
 }
