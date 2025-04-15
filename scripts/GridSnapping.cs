@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GridSnapping : MonoBehaviour
 {
-    public float snapSize = 0.5f;  // Size of the grid
+    public float snapSize = 0.5f;
     private Vector3 originalPosition;
 
     void Start()

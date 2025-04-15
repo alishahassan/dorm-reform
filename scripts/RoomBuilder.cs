@@ -8,19 +8,16 @@ public class RoomBuilder : MonoBehaviour
     {
         if (floor != null)
         {
-            // Adjust the floor's scale directly based on scaleChange
             Vector3 newFloorScale = new Vector3(
                 floor.transform.localScale.x + scaleChange.x,
-                floor.transform.localScale.y, // Keep the floor's Y scale the same
+                floor.transform.localScale.y,
                 floor.transform.localScale.z + scaleChange.z
             );
 
             floor.transform.localScale = newFloorScale;
 
-            // Adjust the floor's position based on the change in scale
             AdjustFloorPosition(scaleChange, handleType);
 
-            // Adjust the RoomBuilder's scale to match the floor
             AdjustRoomBuilderScale(newFloorScale);
         }
         else
@@ -29,12 +26,11 @@ public class RoomBuilder : MonoBehaviour
         }
     }
 
-    // Adjust the RoomBuilder's scale to match the floor's new scale
     void AdjustRoomBuilderScale(Vector3 floorScale)
     {
         transform.localScale = new Vector3(
             floorScale.x,
-            transform.localScale.y, // Keep the RoomBuilder's Y scale the same
+            transform.localScale.y,
             floorScale.z
         );
     }
@@ -59,7 +55,6 @@ public class RoomBuilder : MonoBehaviour
                 break;
         }
 
-        // Adjust the floor's position based on the change in RoomBuilder's scale
         floor.transform.localPosition = new Vector3(
             floor.transform.localPosition.x + positionOffset.x,
             floor.transform.localPosition.y,
@@ -69,7 +64,6 @@ public class RoomBuilder : MonoBehaviour
 
     void AdjustRoomBuilderPosition(Vector3 scaleChange, HandleHighlight.HandleType handleType)
     {
-    // Adjust the RoomBuilder's position based on the change in scale
     Vector3 positionOffset = Vector3.zero;
 
     switch (handleType)
@@ -88,7 +82,6 @@ public class RoomBuilder : MonoBehaviour
             break;
     }
 
-    // Adjust the RoomBuilder's position based on the change in scale
     transform.localPosition = new Vector3(
         transform.localPosition.x + positionOffset.x,
         transform.localPosition.y,

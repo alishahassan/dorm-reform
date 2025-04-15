@@ -11,14 +11,11 @@ public class selection : MonoBehaviour
 
    public GameObject objUi;
    
-   // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         buildingManager = GameObject.Find("buildingmanager").GetComponent<buildingmanager>();
-        // objUi = GameObject.Find("Large/Edit Panel/object");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
@@ -42,13 +39,11 @@ public class selection : MonoBehaviour
         Outline outline = obj.GetComponent<Outline>();
         if(outline == null) obj.AddComponent<Outline>();
         else outline.enabled = true;
-        objNameText.text = obj.name;
         objUi.SetActive(true);
         selectedObject = obj;
     }
 
     private void Deselect() {
-        // return;
         objUi.SetActive(false);
         selectedObject.GetComponent<Outline>().enabled = false;
         selectedObject = null;
@@ -57,6 +52,13 @@ public class selection : MonoBehaviour
     public void Move() {
         buildingManager.pendingObject = selectedObject;
     }
+
+    public void Rotate() {
+    if (selectedObject != null) {
+        selectedObject.transform.Rotate(Vector3.up, 90f);
+    }
+}
+
 
     public void Delete() {
         GameObject objToDestroy = selectedObject;

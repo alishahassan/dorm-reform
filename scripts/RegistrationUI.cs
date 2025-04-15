@@ -6,7 +6,7 @@ public class RegistrationUI : MonoBehaviour
     public InputField usernameInput;
     public InputField passwordInput;
     public Text messageText;
-    public BackendService backendService; // Assign in Inspector
+    public BackendService backendService;
 
     public void OnRegisterButtonClicked()
     {
@@ -14,8 +14,8 @@ public class RegistrationUI : MonoBehaviour
         string password = passwordInput.text;
 
         backendService.RegisterUser(username, password,
-            (successMessage) => { messageText.text = successMessage; }, // onSuccess
-            (errorMessage) => { messageText.text = errorMessage; }      // onError
+            (successMessage) => { messageText.text = successMessage; },
+            (errorMessage) => { messageText.text = errorMessage; }
         );
     }
 }

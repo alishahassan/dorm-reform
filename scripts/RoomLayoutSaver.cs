@@ -4,26 +4,26 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEditor;
 using System;
-using System.Collections; // Add this for List
-using Newtonsoft.Json; // If using Newtonsoft.Json
+using System.Collections;
+using Newtonsoft.Json;
 using UnityEngine.Networking;
 
 public class RoomLayoutSaver : MonoBehaviour
 {
-    public Button menuButton; // The hamburger menu button
-    public GameObject menuPanel; // The panel containing the action buttons
+    public Button menuButton;
+    public GameObject menuPanel;
     public Button saveButton;
     public Button loadButton;
     public Text statusText;
     public Button resetButton;
-    public GameObject confirmationDialog; // The entire confirmation panel
+    public GameObject confirmationDialog;
     public Button confirmButton;
     public Button cancelButton;
-    public Text confirmText; // The "Are you sure?" text
+    public Text confirmText;
     public GameObject roomPlane;
-    public GameObject furnitureParent; // Parent object containing all furniture as children
+    public GameObject furnitureParent;
     public RoomDimensionValidator roomDimensions;
-    public Text roomDimensionsText; // UI Text to display room dimensions
+    public Text roomDimensionsText;
     private string fileExtension = ".room";
     private Vector3 defaultRoomScale = new Vector3(4f, 1f, 6f);
 
@@ -34,10 +34,8 @@ public class RoomLayoutSaver : MonoBehaviour
 
     void Start()
     {
-        // Menu button listener
         menuButton.onClick.AddListener(ToggleMenu);
 
-        // Action button listeners
         saveButton.onClick.AddListener(SaveRoomLayout);
         loadButton.onClick.AddListener(LoadRoomLayout);
         resetButton.onClick.AddListener(ShowConfirmationDialog);
@@ -45,18 +43,17 @@ public class RoomLayoutSaver : MonoBehaviour
         confirmButton.onClick.AddListener(HideConfirmationDialog);
         cancelButton.onClick.AddListener(HideConfirmationDialog);
 
-        // Ensure confirmation UI elements start hidden
         confirmationDialog.SetActive(false);
         confirmButton.gameObject.SetActive(false);
         cancelButton.gameObject.SetActive(false);
         confirmText.gameObject.SetActive(false);
 
-        menuPanel.SetActive(false); // Initially hide the menu panel
+        menuPanel.SetActive(false);
     }
 
     void Update()
     {
-        UpdateRoomDimensionsText(); // Update dimensions every frame (or less often if needed)
+        UpdateRoomDimensionsText();
     }
 
     public void ToggleMenu()
@@ -71,14 +68,14 @@ public class RoomLayoutSaver : MonoBehaviour
 
         if (string.IsNullOrEmpty(filePath))
         {
-            return; // Cancel the save operation
+            return;
         }
 
         if (File.Exists(filePath))
         {
             if (!EditorUtility.DisplayDialog("Overwrite File?", "The file already exists. Do you want to overwrite it?", "Yes", "No"))
             {
-                return; // Cancel the overwrite
+                return;
             }
         }
 
@@ -111,7 +108,7 @@ public class RoomLayoutSaver : MonoBehaviour
 
         if (string.IsNullOrEmpty(filePath))
         {
-            return; // Cancel the load operation
+            return;
         }
 
         if (!File.Exists(filePath))
@@ -129,26 +126,22 @@ public class RoomLayoutSaver : MonoBehaviour
             RoomData roomData = (RoomData)formatter.Deserialize(file);
             file.Close();
 
-            // Clear existing furniture
             foreach (Transform child in furnitureParent.transform)
             {
                 Destroy(child.gameObject);
             }
 
-            // Load room plane scale
             roomPlane.transform.localScale = roomData.roomScale.ToVector3();
 
-            // Update current dimensions and display
             currentLength = roomPlane.transform.localScale.z;
             currentWidth = roomPlane.transform.localScale.x;
             UpdateRoomDimensionsText();
 
-            // Load furniture
             if (roomData.furnitureData != null)
             {
                 foreach (FurnitureData furniture in roomData.furnitureData)
                 {
-                    GameObject prefab = Resources.Load<GameObject>(furniture.name); // Load prefab from Resources folder
+                    GameObject prefab = Resources.Load<GameObject>(furniture.name);
                     if (prefab != null)
                     {
                         GameObject furnitureInstance = Instantiate(prefab, furnitureParent.transform);
@@ -175,10 +168,10 @@ public class RoomLayoutSaver : MonoBehaviour
 
     void ShowConfirmationDialog()
     {
-        confirmationDialog.SetActive(true); // Show the entire panel
-        confirmButton.gameObject.SetActive(true); // Show Confirm button
-        cancelButton.gameObject.SetActive(true); // Show Cancel button
-        confirmText.gameObject.SetActive(true); // Show confirmation text
+        confirmationDialog.SetActive(true);
+        confirmButton.gameObject.SetActive(true);
+        cancelButton.gameObject.SetActive(true);
+        confirmText.gameObject.SetActive(true);
     }
 
     void HideConfirmationDialog()
@@ -191,7 +184,6 @@ public class RoomLayoutSaver : MonoBehaviour
 
     void ResetRoom()
     {
-        // Remove all furniture and decor
         foreach (Transform child in furnitureParent.transform)
         {
             Destroy(child.gameObject);
@@ -199,13 +191,10 @@ public class RoomLayoutSaver : MonoBehaviour
 
         float currentHeight = roomPlane.transform.localScale.z;
 
-        // Reset room dimensions to default (4m x 6m)
         roomPlane.transform.localScale = new Vector3(4f, 6f, currentHeight);
     
-        // Update the displayed room dimensions
         UpdateRoomDimensionsText();
 
-        // Show status message
         statusText.text = "Room reset to default!";
         Invoke("ClearStatus", 5f);
     }

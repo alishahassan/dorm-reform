@@ -7,7 +7,6 @@ public class VRSceneInitializer : MonoBehaviour
 {
     public Transform targetParent;
     private List<GameObject> copiedObjects = new List<GameObject>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(CopyRoomObjects());
@@ -23,12 +22,11 @@ public class VRSceneInitializer : MonoBehaviour
         {
             foreach (GameObject obj in objectsToCopy)
             {
-                if (obj != null) // Safety check
+                if (obj != null)
                 {
-                    GameObject copy = Instantiate(obj, targetParent); // Instantiate a copy
-                    copiedObjects.Add(copy); // Add to the list
+                    GameObject copy = Instantiate(obj, targetParent);
+                    copiedObjects.Add(copy);
 
-                    // Remove any scripts you don't want on the copy
                     DestroyImmediate(copy.GetComponent<RoomDimensionValidator>());
                     DestroyImmediate(copy.GetComponent<FloorScaler>());
                 }
@@ -44,11 +42,11 @@ public class VRSceneInitializer : MonoBehaviour
     {
         foreach (GameObject obj in copiedObjects)
         {
-            if (obj != null) // Safety check
+            if (obj != null)
             {
                 Destroy(obj);
             }
         }
-        copiedObjects.Clear(); // Clear the list
+        copiedObjects.Clear();
     }
 }

@@ -14,7 +14,6 @@ public class FloorScaler : MonoBehaviour
     private Vector3 initialScale;
     private bool isDragging = false;
 
-    // Store initial wall positions
     private Vector3 initialWallNorthPos;
     private Vector3 initialWallSouthPos;
     private Vector3 initialWallEastPos;
@@ -38,14 +37,14 @@ public class FloorScaler : MonoBehaviour
             if (scaleOnYAxis)
             {
                 float newScaleY = initialScale.y * scaleFactor;
-                newScaleY = Mathf.Clamp(Mathf.Round(newScaleY / gridSize) * gridSize, 2f, 8f); // Snap to grid & clamp range
+                newScaleY = Mathf.Clamp(Mathf.Round(newScaleY / gridSize) * gridSize, 5f, 7f);
                 floor.transform.localScale = new Vector3(initialScale.x, newScaleY, initialScale.z);
                 ceiling.transform.localScale = new Vector3(initialScale.x, newScaleY, initialScale.z);
             }
             else
             {
                 float newScaleX = initialScale.x * scaleFactor;
-                newScaleX = Mathf.Clamp(Mathf.Round(newScaleX / gridSize) * gridSize, 2f, 8f);
+                newScaleX = Mathf.Clamp(Mathf.Round(newScaleX / gridSize) * gridSize, 3f, 5f);
                 floor.transform.localScale = new Vector3(newScaleX, initialScale.y, initialScale.z);
                 ceiling.transform.localScale = new Vector3(newScaleX, initialScale.y, initialScale.z);
             }

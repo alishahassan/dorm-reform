@@ -9,7 +9,7 @@ public class HandleHighlight : MonoBehaviour
     public enum HandleType { SE, NW, NE, SW }
     public HandleType handleType;
 
-    public RoomBuilder roomBuilder; // Reference to your Room Builder script
+    public RoomBuilder roomBuilder;
 
     void Start()
     {
@@ -51,7 +51,6 @@ public class HandleHighlight : MonoBehaviour
 
         Vector3 movement = worldPosition - transform.position;
 
-        // Add a null check for roomBuilder
         if (roomBuilder != null)
         {
             AdjustFloorScale(movement);
@@ -61,7 +60,7 @@ public class HandleHighlight : MonoBehaviour
             Debug.LogError("Room Builder GameObject not assigned in HandleHighlight.");
         }
 
-        transform.position = worldPosition; // Optional: move handle
+        transform.position = worldPosition;
     }
 
     void AdjustFloorScale(Vector3 movement)
@@ -90,6 +89,6 @@ public class HandleHighlight : MonoBehaviour
                 break;
         }
 
-        roomBuilder.AdjustFloorScale(scaleChange, handleType); // Call the new method in RoomBuilder
+        roomBuilder.AdjustFloorScale(scaleChange, handleType);
     }
 }

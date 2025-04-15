@@ -5,8 +5,7 @@ public class CleanUpObjects : MonoBehaviour
 {
     public void CleanupVRObjects()
     {
-        // Destroy by Parent
-        Transform roomCopies = GameObject.Find("Room Builder")?.transform; // Find the parent object
+        Transform roomCopies = GameObject.Find("Room Builder")?.transform;
         if (roomCopies != null)
         {
             foreach (Transform child in roomCopies)
@@ -15,9 +14,9 @@ public class CleanUpObjects : MonoBehaviour
                     DontDestroyOnLoad(child);
                 }
                 else
-                    Destroy(child.gameObject); // Destroy each child
+                    Destroy(child.gameObject);
             }
-            Destroy(roomCopies.gameObject); // Destroy the parent too
+            Destroy(roomCopies.gameObject);
         }
     }
 }
